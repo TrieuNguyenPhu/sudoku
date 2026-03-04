@@ -1,11 +1,21 @@
 package handlers
 
 import (
+	"sudoku/internal/services"
+
 	"github.com/gin-gonic/gin"
 )
 
-// RegisterRoutes registers all application routes
+// RegisterRoutes registers all application routes with proper service initialization
 func RegisterRoutes(router *gin.Engine) {
+	// Initialize services
+	solverService := services.NewSolverService()
+	puzzleService := services.NewPuzzleService(solverService)
+	
+	// Initialize handlers
+	puzzleHandler := NewPuzzleHandler(puzzleService)
+	solverHandler := NewSolverHandler(solverService)
+
 	// Web interface routes
 	router.GET("/", func(c *gin.Context) {
 		// Create arrays for template iteration
@@ -23,20 +33,20 @@ func RegisterRoutes(router *gin.Engine) {
 		})
 	})
 
-	// API routes (placeholder for now)
+	// API routes for puzzle generation (requirements 1, 2, 3)
+	router.GET("/easy", puzzleHandler.GenerateEasy)
+	router.GET("/medium", puzzleHandler.GenerateMedium)
+	router.GET("/hard", puzzleHandler.GenerateHard)
+	
+	// API route for puzzle solving (requirement 4)
+	router.POST("/sudoku-solver", solverHandler.SolvePuzzle)
+
+	// Legacy API routes (for backward compatibility)
 	api := router.Group("/api")
 	{
-		api.GET("/easy", func(c *gin.Context) {
-			c.JSON(200, gin.H{"message": "Easy puzzle endpoint - to be implemented"})
-		})
-		api.GET("/medium", func(c *gin.Context) {
-			c.JSON(200, gin.H{"message": "Medium puzzle endpoint - to be implemented"})
-		})
-		api.GET("/hard", func(c *gin.Context) {
-			c.JSON(200, gin.H{"message": "Hard puzzle endpoint - to be implemented"})
-		})
-		api.POST("/sudoku-solver", func(c *gin.Context) {
-			c.JSON(200, gin.H{"message": "Solver endpoint - to be implemented"})
-		})
+		api.GET("/easy", puzzleHandler.GenerateEasy)
+		api.GET("/medium", puzzleHandler.GenerateMedium)
+		api.GET("/hard", puzzleHandler.GenerateHard)
+		api.POST("/sudoku-solver", solverHandler.SolvePuzzle)
 	}
 }
