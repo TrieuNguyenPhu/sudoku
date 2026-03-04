@@ -1,0 +1,16 @@
+{{define "sudoku_grid"}}
+<div class="sudoku-grid">
+    {{range $i := .Rows}}
+    <div class="sudoku-row">
+        {{range $j := $.Cols}}
+        <input type="text" 
+               class="sudoku-cell" 
+               data-row="{{$i}}" 
+               data-col="{{$j}}"
+               maxlength="1"
+               pattern="[1-9]">
+        {{end}}
+    </div>
+    {{end}}
+</div>
+{{end}}

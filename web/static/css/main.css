@@ -1,0 +1,166 @@
+/* Basic reset and layout */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+    color: #333;
+    line-height: 1.6;
+}
+
+header {
+    background-color: #2c3e50;
+    color: white;
+    text-align: center;
+    padding: 1rem;
+}
+
+main {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+footer {
+    text-align: center;
+    padding: 1rem;
+    background-color: #34495e;
+    color: white;
+    margin-top: 2rem;
+}
+
+/* Game container */
+.game-container {
+    background: white;
+    border-radius: 8px;
+    padding: 2rem;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+/* Controls */
+.controls {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.difficulty-btn, .action-btn {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    margin: 0 0.5rem;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s;
+}
+
+.difficulty-btn:hover, .action-btn:hover {
+    background-color: #2980b9;
+}
+
+.action-btn {
+    background-color: #27ae60;
+}
+
+.action-btn:hover {
+    background-color: #229954;
+}
+
+/* Sudoku grid */
+.sudoku-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 2rem;
+}
+
+.sudoku-grid {
+    display: grid;
+    grid-template-rows: repeat(9, 1fr);
+    gap: 2px;
+    background-color: #2c3e50;
+    border: 3px solid #2c3e50;
+    border-radius: 4px;
+}
+
+.sudoku-row {
+    display: grid;
+    grid-template-columns: repeat(9, 1fr);
+    gap: 2px;
+}
+
+.sudoku-cell {
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    font-size: 1.2rem;
+    font-weight: bold;
+    border: none;
+    background-color: white;
+    color: #333;
+}
+
+.sudoku-cell:focus {
+    outline: 2px solid #3498db;
+    background-color: #ecf0f1;
+}
+
+.sudoku-cell.pre-filled {
+    background-color: #bdc3c7;
+    color: #2c3e50;
+}
+
+.sudoku-cell.invalid {
+    background-color: #e74c3c;
+    color: white;
+}
+
+.sudoku-cell.valid {
+    background-color: #27ae60;
+    color: white;
+}
+
+/* Status messages */
+.status {
+    text-align: center;
+    padding: 1rem;
+    border-radius: 4px;
+    margin-top: 1rem;
+}
+
+.status.success {
+    background-color: #d5f4e6;
+    color: #27ae60;
+    border: 1px solid #27ae60;
+}
+
+.status.error {
+    background-color: #fadbd8;
+    color: #e74c3c;
+    border: 1px solid #e74c3c;
+}
+
+.status.info {
+    background-color: #d6eaf8;
+    color: #3498db;
+    border: 1px solid #3498db;
+}
+
+/* Responsive design */
+@media (max-width: 600px) {
+    .sudoku-cell {
+        width: 30px;
+        height: 30px;
+        font-size: 1rem;
+    }
+    
+    .difficulty-btn, .action-btn {
+        padding: 0.5rem 1rem;
+        font-size: 0.9rem;
+        margin: 0.25rem;
+    }
+}
